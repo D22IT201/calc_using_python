@@ -1,49 +1,53 @@
+import sys
+
 # Import QApplication and the required widgets from PyQt5.QtWidgets
-
-from PyQt5.QtCore import Qt
-
+from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtWidgets import QWidget
+
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QGridLayout
 from PyQt5.QtWidgets import QLineEdit
 from PyQt5.QtWidgets import QPushButton
 from PyQt5.QtWidgets import QVBoxLayout
 
-class GUI(QMainWindow):
+from functools import partial
+
+__version__ = '0.1'
+__author__ = 'codegenius'
+
+
+# Create a subclass of QMainWindow to setup the calculator's GUI
+class PyCalcUi(QMainWindow):
     """PyCalc's View (GUI)."""
     def __init__(self):
         """View initializer."""
         super().__init__()
-
         # Set some main window's properties
-        self.setWindowTitle('Calculator')
+        self.setWindowTitle('PyCalc')
         self.setFixedSize(235, 235)
-
         # Set the central widget and the general layout
         self.generalLayout = QVBoxLayout()
-
-        # Set the central widget
         self._centralWidget = QWidget(self)
         self.setCentralWidget(self._centralWidget)
         self._centralWidget.setLayout(self.generalLayout)
-
         # Create the display and the buttons
-        self._createDisplayLED()
+        self._createDisplay()
         self._createButtons()
 
-    def _createDisplayLED(self):
+    # Snip
+    def _createDisplay(self):
         """Create the display."""
-        
         # Create the display widget
         self.display = QLineEdit()
         # Set some display's properties
         self.display.setFixedHeight(35)
         self.display.setAlignment(Qt.AlignRight)
         self.display.setReadOnly(True)
-        
         # Add the display to the general layout
         self.generalLayout.addWidget(self.display)
 
+    # Snip
     def _createButtons(self):
         """Create the buttons."""
         self.buttons = {}
@@ -78,12 +82,13 @@ class GUI(QMainWindow):
         # Add buttonsLayout to the general layout
         self.generalLayout.addLayout(buttonsLayout)
 
+    # Snip
     def setDisplayText(self, text):
         """Set display's text."""
         self.display.setText(text)
         self.display.setFocus()
 
-    def getDisplayText(self):
+    def displayText(self):
         """Get display's text."""
         return self.display.text()
 
